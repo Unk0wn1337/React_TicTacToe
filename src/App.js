@@ -1,44 +1,13 @@
 
-import { useState } from 'react';
+import { useContext } from 'react';
 import './App.css';
 import Jatekter from './components/Jatekter';
+import { KattContext, KattProvider } from './context/KattContext';
 
 function App() {
-  const [lista, setLista] = useState([
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-  ]);
-  const [lepes, setLepes] = useState(0);
-  function katt(adat) {
-    //itt akarjuk lekezelni,hogy melyik elemre kattintuntunk és mit írjunk a listába
-    lista[adat] = "X";
-    //a state-ket közvetlenül nem módósíthatjuk csak a beállító függvényen keresztül
-    //1. Csinálunk egy másolatott az adatról
-    //const slista=lista //ne referencoát adjunk átt, hanem másolatot készítsünk
-    const slista = [...lista];
-    //2. a másolat módosítása
-    if (lepes % 2 == 0) {
-      slista[adat] = "X";
-    } else {
-      slista[adat] = "O";
-    }
-    let slepes = lepes;
-    slepes++;
-    setLepes(slepes);
-    // setLepes(lepes+1) ez is jó lenne
-    //3. a másolatot értékül adjuk az eredetinek
-    setLista([...slista]);
-     
-     
-  }
-
+ 
+  /*Itt akarjuk használni a listát, useContext hook  segítségével*/
+  const {lista} = useContext(KattContext) 
   
   return (
     <div className="App">
@@ -46,7 +15,10 @@ function App() {
         <h1>TicTacToe</h1>
       </header>
       <article>
-        <Jatekter lista={lista} katt={katt}/>
+      
+    
+        <Jatekter lista={lista}/>
+      
 
       </article>
       <footer>
